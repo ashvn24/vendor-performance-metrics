@@ -103,7 +103,7 @@ DATABASES = {
         "NAME": "vendor",
         "USER": "postgres",
         "PASSWORD": "0089ashi",
-        "HOST": "127.0.0.1",
+        "HOST": "pgdb",
         "PORT": "5432",
     }
 }
