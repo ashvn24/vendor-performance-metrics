@@ -1,23 +1,27 @@
 from django.shortcuts import render
 from .models import *
 from .serializers import *
-from rest_framework import generics, status
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 
 class VendorAPIView(generics.ListCreateAPIView):
     serializer_class = VendorSerializers
     queryset = Vendor.objects.all()
+    permission_classes = [IsAuthenticated]
 
 
 class ListVendorAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = VendorSerializers
+    permission_classes = [IsAuthenticated]
     queryset = Vendor.objects.all()
     lookup_field = 'vendor_code'
 
 
 class PurchaseAPIView(generics.ListCreateAPIView):
     serializer_class = POSerialisers
+    permission_classes = [IsAuthenticated]
     queryset = PurchaseOrder.objects.all()
 
     def get_queryset(self):
@@ -25,23 +29,26 @@ class PurchaseAPIView(generics.ListCreateAPIView):
         vendor_code = self.request.query_params.get('vendor_code')
         if vendor_code:
             data = queryset.filter(vendor=vendor_code)
-        return data
+            return data
 
 
 class ManagePurchaseAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = PurchaseOrder.objects.all()
+    permission_classes = [IsAuthenticated]
     serializer_class = POSerialisers
     lookup_field = 'po_number'
 
 
 class VendorPerformanceAPIView(generics.RetrieveAPIView):
     queryset = Vendor.objects.all()
+    permission_classes = [IsAuthenticated]
     serializer_class = VendorPerformanceSerializer
     lookup_field = 'vendor_code'
 
 
 class AcknowledgePurchaseAPIView(generics.UpdateAPIView):
     queryset = PurchaseOrder
+    permission_classes = [IsAuthenticated]
     serializer_class = POSerialisers
     lookup_field = 'po_number'
 

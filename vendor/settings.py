@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'vendors',
     'django_celery_results',
+    'Users',
+    'rest_framework_simplejwt'
     
     
 ]
@@ -53,12 +55,25 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'Users.middleware.TokenRefreshMiddleware',
 ]
 
 ROOT_URLCONF = 'vendor.urls'
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=50),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
+AUTH_USER_MODEL = 'Users.CustomUser'
 
 TEMPLATES = [
     {
@@ -85,7 +100,7 @@ WSGI_APPLICATION = 'vendor.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "fatmug",
+        "NAME": "vendor",
         "USER": "postgres",
         "PASSWORD": "0089ashi",
         "HOST": "127.0.0.1",
