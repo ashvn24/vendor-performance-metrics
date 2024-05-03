@@ -39,11 +39,11 @@ class VendorPerformanceAPIView(generics.RetrieveAPIView):
     serializer_class = VendorPerformanceSerializer
     lookup_field = 'vendor_code'
 
-    
+
 class AcknowledgePurchaseAPIView(generics.UpdateAPIView):
     queryset = PurchaseOrder
     serializer_class = POSerialisers
     lookup_field = 'po_number'
-    
+
     def perform_update(self, serializer):
         instance = serializer.save(acknowledgment_date=timezone.now())
