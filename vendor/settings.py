@@ -98,25 +98,14 @@ WSGI_APPLICATION = 'vendor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-if 'DOCKER_CONTAINER' in os.environ:
-    DATABASES = {
-        "default": {
+
+DATABASES = {
+    "default": {
             "ENGINE": "django.db.backends.postgresql",
             "NAME": "vendor",
             "USER": "postgres",
             "PASSWORD": "0089ashi",
             "HOST": "pgdb",
-            "PORT": "5432",
-        }
-    }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": "vendor",
-            "USER": "postgres",
-            "PASSWORD": "0089ashi",
-            "HOST": "localhost",
             "PORT": "5432",
         }
     }
@@ -156,14 +145,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<----------CELERY----------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-import os
 
-# Check if running in Docker
-if 'DOCKER_CONTAINER' in os.environ:
-    CELERY_BROKER_URL = 'redis://redis:6379/0'
-else:
-    CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-    
+#running in Docker
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'   
+ 
 CELERY_ACCEPT_CONTENT =['application/json']
 CELERY_TASK_SERIALIZER ='json'
 CELERY_RESULT_SERIALIZER = 'json'
