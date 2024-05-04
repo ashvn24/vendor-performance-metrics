@@ -24,7 +24,12 @@ Run vendor-project with docker
   docker-compose up --build
 ```
 
+Run test in docker
 
+```bash
+  docker-compose exec django python manage.py test
+
+```
 ## Run Locally
 
 Clone the project
