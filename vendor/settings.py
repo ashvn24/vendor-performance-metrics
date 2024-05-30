@@ -105,7 +105,7 @@ DATABASES = {
             "NAME": "vendor",
             "USER": "postgres",
             "PASSWORD": "0089ashi",
-            "HOST": "pgdb",
+            "HOST": "pgdb",    #replace pgdb with localhost here when running locally
             "PORT": "5432",
         }
     }
@@ -149,6 +149,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #running in Docker
 
 CELERY_BROKER_URL = 'redis://redis:6379/0'   
+
+#locally
+# CELERY_BROKER_URL = 'redis://127.0.0.1:6379'   
  
 CELERY_ACCEPT_CONTENT =['application/json']
 CELERY_TASK_SERIALIZER ='json'

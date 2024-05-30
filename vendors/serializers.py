@@ -19,3 +19,8 @@ class VendorPerformanceSerializer(serializers.ModelSerializer):
         model = Vendor
         fields = ['name', 'on_time_delivery_rate', 'quality_rating_avg',
                   'average_response_time', 'fulfillment_rate']
+
+class VendorHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HistoricalPerformance
+        fields = '__all__'

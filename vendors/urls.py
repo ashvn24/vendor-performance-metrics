@@ -6,9 +6,13 @@ urlpatterns = [
     path('vendors/<int:vendor_code>/', ListVendorAPIView.as_view()),
     path('vendors/<int:vendor_code>/performance/',
          VendorPerformanceAPIView.as_view()),
+    path('vendors/history/<int:vendor_code>/', GetHistoryAPIView.as_view()),
 
     path('purchase_orders/', PurchaseAPIView.as_view()),
     path('purchase_orders/<str:po_number>/', ManagePurchaseAPIView.as_view()),
     path('purchase_orders/<str:po_number>/acknowledge/',
          AcknowledgePurchaseAPIView.as_view()),
+    
 ]
+
+

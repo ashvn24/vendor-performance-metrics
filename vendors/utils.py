@@ -9,7 +9,8 @@ def calculate_on_time_delivery_rate(vendor):
     on_time_orders = PurchaseOrder.objects.filter(
         status='completed', delivery_date__lte=F('expected_delivery_date')
     ).count()
-
+    
+    print(on_time_orders, total_orders)
     if total_orders > 0:
         return on_time_orders / total_orders
     return 0.0

@@ -51,6 +51,7 @@ class VendorPerformanceAPIView(generics.RetrieveAPIView):
     lookup_field = 'vendor_code'
 
 
+
 class AcknowledgePurchaseAPIView(generics.UpdateAPIView):
     queryset = PurchaseOrder
     permission_classes = [IsAuthenticated]
@@ -58,4 +59,11 @@ class AcknowledgePurchaseAPIView(generics.UpdateAPIView):
     lookup_field = 'po_number'
 
     def perform_update(self, serializer):
-        instance = serializer.save(acknowledgment_date=timezone.now())
+        instance = serializer.save(acknowledgment_date=timezone.now(), status="accepted")
+
+
+class GetHistoryAPIView(generics.ListAPIView):
+    queryset = HistoricalPerformance.objects.all()
+    permission_classes = [IsAuthenticated]
+    serializer_class = VendorHistorySerializer
+    lookup_field = 'vendor_code'
